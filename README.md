@@ -1,6 +1,10 @@
 # Baseline
 GLM, SDL, ICA for mapping brain function
 
+## Requirement
+- statsmodels
+- numpy
+
 ## Example
 ```python
 from baseline.glm import GLM
