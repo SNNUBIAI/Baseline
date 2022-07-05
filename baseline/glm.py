@@ -3,10 +3,22 @@ import statsmodels.api as sm
 
 from copy import deepcopy
 
+from baseline.masker import Masker
+
 class GLM:
-	def __init__(self, fmri_signals, design_matrix, p=0.01):
+	def __init__(self, fmri_signals, design_matrix, p=0.01, mask_path=None):
+		"""
+		:param fmri_signals: Nifti nii path or 2d (T, signals) np.array
+		:param design_matrix: 2d (T, task_num) np.array
+		:param p: float  < 0.05 (0.01, 0.001)
+		:param mask_path: mask path str
+		"""
+		if mask_path is not None:
+			self.masker = Masker(mask_path=mask_path)
+			self.fmri_signals = self.masker.transform(fmri_signals.get_fdata())
+		else:
+			self.fmri_signals = fmri_signals
 		self.p = p
-		self.fmri_signals = fmri_signals
 		self.design_matrix = design_matrix
 		self.coef_ = None
 		self.p_ = None
