@@ -11,12 +11,11 @@ class SDL(Masker):
 		self.n_components = n_components
 		self.random_state = random_state
 		self.alpha = alpha
-		self.dict_learning = DictLearning(mask = self.mask_path,
-							 n_components=self.n_components,
-                             memory="nilearn_cache",
-                             memory_level=2,
-							 alpha=self.alpha,
-                             random_state=self.random_state)
+		self.dict_learning = DictLearning(mask=self.mask_path,
+						n_components=self.n_components,
+						memory="nilearn_cache", memory_level=2,
+						alpha=self.alpha,
+						random_state=self.random_state)
 
 	def fit(self, data_path=None):
 		if data_path is not None:
