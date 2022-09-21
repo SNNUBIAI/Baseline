@@ -1,7 +1,10 @@
 import numpy as np
+import os
+
+data_path = os.path.dirname(os.path.abspath(__file__))
 
 def loadMotorTaskDesign():
-	design_matrix_path = "./data/motor/design.mat"
+	design_matrix_path = data_path + "/data/motor/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
@@ -10,7 +13,7 @@ def loadMotorTaskDesign():
 	return design_matrix
 
 def loadEmotionTaskDesign():
-	design_matrix_path = "./data/emotion/design.mat"
+	design_matrix_path = data_path + "/data/emotion/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
@@ -19,7 +22,7 @@ def loadEmotionTaskDesign():
 	return design_matrix
 
 def loadGamblingTaskDesign():
-	design_matrix_path = "./data/gambling/design.mat"
+	design_matrix_path = data_path + "/data/gambling/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
@@ -28,7 +31,7 @@ def loadGamblingTaskDesign():
 	return design_matrix
 
 def loadLanguageTaskDesign():
-	design_matrix_path = "./data/language/design.mat"
+	design_matrix_path = data_path + "/data/language/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
@@ -37,7 +40,7 @@ def loadLanguageTaskDesign():
 	return design_matrix
 
 def loadRelationalTaskDesign():
-	design_matrix_path = "./data/relational/design.mat"
+	design_matrix_path = data_path + "/data/relational/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
@@ -46,7 +49,7 @@ def loadRelationalTaskDesign():
 	return design_matrix
 
 def loadSocialTaskDesign():
-	design_matrix_path = "./data/social/design.mat"
+	design_matrix_path = data_path + "/data/social/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
@@ -55,7 +58,7 @@ def loadSocialTaskDesign():
 	return design_matrix
 
 def loadWMTaskDesign():
-	design_matrix_path = "./data/WM/design.mat"
+	design_matrix_path = data_path + "/data/WM/design.mat"
 	design_matrix = np.loadtxt(design_matrix_path,
 							   delimiter="\t",
 							   skiprows=5,
