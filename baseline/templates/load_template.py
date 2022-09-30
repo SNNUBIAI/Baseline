@@ -1,42 +1,54 @@
 import numpy as np
 import os
 
+from baseline.utils import thresholding
+
 data_path = os.path.dirname(os.path.abspath(__file__))
 
-def loadRSNTemplate10():
+def loadRSNTemplate10(threshold=False):
 	template = np.load(data_path + "/data/ICA_template_10.npy")
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadMotorTemplate():
-	# design_matrix_path = "./data/motor/design.mat"
-	# design_matrix = np.loadtxt(design_matrix_path,
-	# 						   delimiter="\t",
-	# 						   skiprows=5,
-	# 						   dtype=float,
-	# 						   usecols=[0, 2, 4, 6, 8, 10])
+def loadMotorTemplate(threshold=False):
 	template = np.load(data_path + "/data/MOTOR_maps.npy")[:6, :]
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadEmotionTemplate():
+def loadEmotionTemplate(threshold=False):
 	template = np.load(data_path + "/data/EMOTION_maps.npy")[:2, :]
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadGamblingTemplate():
+def loadGamblingTemplate(threshold=False):
 	template = np.load(data_path + "/data/GAMBLING_maps.npy")[:2, :]
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadLanguageTemplate():
+def loadLanguageTemplate(threshold=False):
 	template = np.load(data_path + "/data/LANGUAGE_maps.npy")[:2, :]
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadRelationalTemplate():
+def loadRelationalTemplate(threshold=False):
 	template = np.load(data_path + "/data/RELATIONAL_maps.npy")[:2, :]
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadSocialTemplate():
+def loadSocialTemplate(threshold=False):
 	template = np.load(data_path + "/data/SOCIAL_maps.npy")[:2, :]
+	if threshold:
+		template = thresholding(template)
 	return template
 
-def loadWMTemplate():
+def loadWMTemplate(threshold=False):
 	template = np.load(data_path + "/data/WM_maps.npy")[:8, :]
+	if threshold:
+		template = thresholding(template)
 	return template
