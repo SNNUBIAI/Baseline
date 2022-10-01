@@ -10,6 +10,7 @@ We provide a benchmark to evaluate the quality of the functional brain networks 
 - nilearn
 - statsmodels
 - numpy
+- sklearn
 
 ## Install
 ```shell script
@@ -32,12 +33,33 @@ glm.fit()
 
 coef = glm.get_coef()
 ```
+- ICA
+```python
+from baseline.ica import canICA
+ica = canICA(n_components=20)
+ica.fit("/home/public/ExperimentData/HCP900/HCP_data/SINGLE/EMOTION_sub_0.npy")
+
+# 2D (T, voxels)
+ica.components_
+```
+
+- Slide window in ICA
+```python
+from baseline.ica import SlideWindowICA
+ica = SlideWindowICA(fmri_data="/home/public/ExperimentData/HCP900/HCP_data/SINGLE/EMOTION_sub_0.npy",
+                     window_size=40,
+                     stride=1,
+                     n_components=20)
+
+# 2D (n_components * sliding_times, voxels)
+components = ica.fit()
+```
 
 - Load Template and task design curve
 ```python
 from baseline.templates import loadMotorTemplate
 from baseline.templates import loadMotorTaskDesign
 
-template = loadMotorTemplate()
+template = loadMotorTemplate(threshold=True)
 task_design = loadMotorTaskDesign()
 ```
