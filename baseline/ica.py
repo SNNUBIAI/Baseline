@@ -69,7 +69,7 @@ class canICA:
 				component *= -1
 
 		if self.masker is not None:
-			self.components_img_ = self.masker.inverse_transform(self.components_)
+			self.components_img_ = self.masker.img2NiftImage(self.components_)
 		return self
 
 	def to_nii(self, path):
