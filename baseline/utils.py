@@ -58,10 +58,10 @@ def evaluate_iou(img2d, template, verbose=1):
 		print("Template\t", end="")
 		for i in range(template.shape[0]):
 			print("{}\t".format(i+1), end="")
-		print("\nIoU\t", end="")
+		print("\nIoU\t\t", end="")
 		for i in range(template.shape[0]):
 			print("{:.4f}\t".format(max_iou[i]), end="")
-		print("\nIndex\t", end="")
+		print("\nIndex\t\t", end="")
 		for i in range(template.shape[0]):
 			print("{}\t".format(max_index[i]), end="")
 	return iou
