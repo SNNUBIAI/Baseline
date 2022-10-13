@@ -109,7 +109,7 @@ class SlideWindowICA:
 		self.components_list_ = []
 
 	def fit(self):
-		for i in trange(0, self.sliding_times, self.stride):
+		for i in trange(0, self.time_step, self.stride):
 			self.ica.fit(self.fmri_data[i:i+self.window_size, :])
 			self.components_list_.append(self.ica.components_)
 		return self.get_components()
