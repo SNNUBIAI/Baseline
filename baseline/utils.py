@@ -47,11 +47,21 @@ def plot_net(components_img,
 						  cut_coords=cut_coords, colorbar=colorbar, annotate=annotate)
 			show()
 
-def evaluate_iou(img2d, template):
+def evaluate_iou(img2d, template, verbose=1):
 	iou = np.zeros((img2d.shape[0], template.shape[0]))
 	for i in range(img2d.shape[0]):
 		for j in range(template.shape[0]):
 			iou[i, j] = IoU(template[j:j + 1, :], img2d[i:i + 1, :])
-	print(iou.max(axis=0))
-	print(iou.argmax(axis=0))
+	if verbose:
+		max_iou = iou.max(axis=0)
+		max_index = iou.argmax(axis=0)
+		print("Template", end="")
+		for i in range(template.shape[0]):
+			print("\tTemplate {}".format(i+1), end="")
+		print("\nIoU", end="")
+		for i in range(template.shape[0]):
+			print("\t{:.4f}".format(max_iou[i]), end="")
+		print("\nIndex", end="")
+		for i in range(template.shape[0]):
+			print("\t{}".format(max_index[i]), end="")
 	return iou
