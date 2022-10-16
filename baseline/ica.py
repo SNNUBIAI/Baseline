@@ -7,6 +7,8 @@ from tqdm import trange
 import numpy as np
 
 from operator import itemgetter
+import warnings
+warnings.filterwarnings("ignore")
 
 from baseline.masker import Masker
 
@@ -109,9 +111,14 @@ class SlideWindowICA:
 		self.components_list_ = []
 
 	def fit(self):
-		for i in trange(0, self.time_step, self.stride):
-			self.ica.fit(self.fmri_data[i:i+self.window_size, :])
+		index = 0
+		for i in trange(self.sliding_times):
+			self.ica.fit(self.fmri_data[index:index+self.window_size, :])
+			index += self.window_size
 			self.components_list_.append(self.ica.components_)
+		# for i in trange(0, self.time_step, self.stride):
+		# 	self.ica.fit(self.fmri_data[i:i+self.window_size, :])
+		# 	self.components_list_.append(self.ica.components_)
 		return self.get_components()
 
 	def setWindowSize(self, window_size):
