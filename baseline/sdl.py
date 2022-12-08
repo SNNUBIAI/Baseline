@@ -1,4 +1,5 @@
 from nilearn.decomposition import DictLearning
+import numpy as np
 
 from baseline.masker import Masker
 
@@ -24,6 +25,10 @@ class SDL(Masker):
 		if data_path is not None:
 			if isinstance(data_path, str) and data_path.endswith(".npy"):
 				data_path = self.img2NiftImage(data_path)
+			elif isinstance(data_path, np.ndarray):
+				data_path = self.img2NiftImage(data_path)
+			else:
+				raise ValueError("data_path must be a numpy ndarray vector or the npy path or the nifti nii")
 			self.dict_learning.fit(data_path)
 		else:
 			self.dict_learning.fit(self.data_path)
