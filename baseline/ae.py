@@ -48,7 +48,8 @@ class AE:
 
 	def fit(self, epochs=5):
 		self.ae.train()
-		for epoch in range(epochs):
+		self.epochs = epochs
+		for epoch in range(self.epochs):
 			total_loss = 0
 			cnt = 0
 			for i in range(0, self.data.shape[0], self.batch_size):
@@ -80,22 +81,37 @@ class AE:
 			return self.components_
 
 		print("Extracting the sources......")
-		sources = self.encode()
+		sources = self.encode(self.data)
 		print("Generating FBNs via Lasso......")
 		self.lasso.fit(sources, self.data.detach().cpu().numpy())
 		self.components_ = self.lasso.coef_.T
 		return self.components_
 
+	@torch.no_grad()
+	def predict(self, img):
+		data = torch.tensor(img, dtype=torch.float).to(self.device)
+		print("Extracting the sources......")
+		sources = self.encode(data)
+		print("Generating FBNs via Lasso......")
+		self.lasso.fit(sources, data.detach().cpu().numpy())
+		self.components_ = self.lasso.coef_.T
+		return self.components_
+
+	def save_model(self, path):
+		torch.save(self.ae.state_dict(), path)
+
+	def load_model(self, path):
+		self.ae.load_state_dict(torch.load(path))
 
 	@torch.no_grad()
-	def encode(self):
+	def encode(self, data):
 		self.ae.eval()
 		encode_ls = []
-		for i in range(0, self.data.shape[0], self.batch_size):
-			if i + self.batch_size <= self.data.shape[0]:
-				x_data = self.data[i:i + self.batch_size, :]
+		for i in range(0, data.shape[0], self.batch_size):
+			if i + self.batch_size <= data.shape[0]:
+				x_data = data[i:i + self.batch_size, :]
 			else:
-				x_data = self.data[i:, :]
+				x_data = data[i:, :]
 			encode, _ = self.ae(x_data)
 			encode_ls.append(encode.detach().cpu().numpy())
 		sources = np.concatenate(encode_ls, axis=0)
