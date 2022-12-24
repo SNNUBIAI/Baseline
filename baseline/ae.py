@@ -67,7 +67,7 @@ class AE:
 				cnt += 1
 
 			total_loss = total_loss / cnt
-			print("Epoch {}/{} : loss={:.4f}".format(epoch, epochs, total_loss))
+			print("Epoch {}/{} : loss={:.4f}".format(epoch+1, epochs, total_loss))
 
 		# print("Extracting the sources......")
 		# sources = self.encode()
