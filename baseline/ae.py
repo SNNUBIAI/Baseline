@@ -14,7 +14,7 @@ class Autoencoder(nn.Module):
 
 	def forward(self, x):
 		encode = self.fc1(x)
-		decode = self.fc2(x)
+		decode = self.fc2(encode)
 		return encode, decode
 
 class AE:
@@ -69,11 +69,22 @@ class AE:
 			total_loss = total_loss / cnt
 			print("Epoch {}/{} : loss={:.4f}".format(epoch, epochs, total_loss))
 
+		# print("Extracting the sources......")
+		# sources = self.encode()
+		# print("Generating FBNs via Lasso......")
+		# self.lasso.fit(sources, self.data.detach().cpu().numpy())
+		# self.components_ = self.lasso.coef_.T
+
+	def get_components_(self):
+		if self.components_ is not None:
+			return self.components_
+
 		print("Extracting the sources......")
 		sources = self.encode()
 		print("Generating FBNs via Lasso......")
 		self.lasso.fit(sources, self.data.detach().cpu().numpy())
 		self.components_ = self.lasso.coef_.T
+		return self.components_
 
 
 	@torch.no_grad()
